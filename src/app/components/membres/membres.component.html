@@ -1,0 +1,63 @@
+<div class="container">
+    <!--------------------------------------------------------------->
+
+    <div class="titre">
+        <div><img src="./../../../assets/defi.png" alt="defi"></div>
+        <div><SPAN>DUEL D'ECHECS</SPAN></div>
+        <div><img src="./../../../assets/defi.png" alt="defi"></div>
+    </div>
+<!------------------------------------------->
+    <div class="lien">
+        {{monpseudo}}, Invite tes amis ! <br> 
+        Copie-colle l'invitation en cliquant ici : <img (click)="copiercoller()"src="./../../../assets/cc.png" alt="cc"><br>
+        et envoie le lien sur 
+        <a href="https://www.facebook.com/" target="_blank"><img src="./../../../assets/fb.png" alt="logo"></a>
+        ,<a href="https://www.whatsapp.com/?lang=fr" target="_blank"><img src="./../../../assets/what.png" alt="logo"></a>
+        ,<a href="https://www.instagram.com/?hl=fr" target="_blank"><img src="./../../../assets/insta.png" alt="logo"></a>
+    </div>
+
+    <!------------------------------------------------------------------------------------------------------------------------------------>
+
+    <div class="border">
+      
+        <span>MES AMIS :</span>
+        
+        <div class="amis">
+            <div *ngFor="let ami of amis$; let i= index;">
+                <div class="ami">
+                    
+                    <div>{{ami.pseudo}}</div>
+                    <div> <img *ngIf="ami.lien=='play'" (click)="reprendre(ami.num)"
+                            src="./../../../assets/defi-vert.png" alt="defi">
+                        <img *ngIf="ami.lien=='aucun'" (click)="inviter(ami.pseudo)"
+                            src="./../../../assets/inviter2.png" alt="defi">
+                        <img *ngIf="ami.lien=='defiepar'&& !ami.repondreVis" (click)="repondre(i)"
+                            src="./../../../assets/repondre.png" alt="defi">
+                        <img *ngIf="ami.lien=='defiepar'&& ami.repondreVis" (click)="accepter(ami.pseudo,i)"
+                            src="./../../../assets/accepter.png" alt="rep">
+                        <img *ngIf="ami.lien=='defiepar'&& ami.repondreVis" (click)="refuser(ami.pseudo,i)"
+                            src="./../../../assets/refuser.png" alt="rep">
+                        <img *ngIf="ami.lien=='defie'" src="./../../../assets/attente.png" alt="loupe">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------------------->
+    <div  class="border">
+        <span>AUTRES MEMBRES INSCRITS : </span>
+ 
+        <div class="membres">
+            <div *ngFor="let mb of mb$">
+                <div class="ami">
+                    <div class="{{mb.etat}}"></div>
+                    <div>{{mb.pseudo}}</div>
+                    <div><img (click)="ajouter(mb.pseudo,mb.idg)" src="./../../../assets/ajout.png" alt="plus">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

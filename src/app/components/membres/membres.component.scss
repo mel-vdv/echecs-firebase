@@ -1,0 +1,89 @@
+.container{
+    background: linear-gradient(#46abe8,#c4fffd);
+    width: 100vw;height: 100vh;
+    position: absolute;
+    top:0px;left:0px;
+    font-family: 'Comic Sans MS',sans-serif;
+    color:rgb(65, 62, 62);
+    text-transform: capitalize;
+    font-weight: 700;
+}
+.border{
+    border-top: white 0.5vw solid;
+    border-bottom: grey 0.5vw solid;
+   // box-shadow: 0 -0.5vw 3vw grey;
+}
+.titre{
+    display: flex;align-items: center; justify-content: center;
+    height: 8vh;
+    background-color: #00588e;
+    color: white;
+    font-family: 'Comic Sans MS',sans-serif;
+    font-size: 7vw;font-weight: bold;
+}
+
+.lien{
+ padding-left: 5vw;padding-right: 5vw;
+ height: 15vh;
+ 
+}
+
+.amis{
+height: 39vh; overflow: scroll;
+}
+.membres{
+    height: 23vh; overflow: scroll;
+}
+
+.co{
+    margin-left: 3vw;margin-right: 3vw;
+    background-color: rgb(60,220,100);
+    height: 3vw; width: 3vw;
+    border-radius: 100%;
+    box-shadow: 0px 0px 1vw green,0px 0px 2vw greenyellow,0px 0px 4vw greenyellow;
+}
+.deco{
+    margin-left: 3vw;margin-right: 3vw;
+    background-color:rgb(230,40,100);
+    box-shadow: 0px 0px 1vw red,0px 0px 2vw rgb(245, 107, 107),0px 0px 4vw rgb(245, 107, 107);
+    height: 3vw; width: 3vw;
+    border-radius: 100%;
+}
+ .ami{
+    display: flex;
+    width: 100vw; 
+    align-items: center;
+}
+
+
+
+img[alt='logo']{
+    height: 3vh;
+}
+img[alt='defi'], img[alt='plus']{
+    height: auto; width: 9vw;
+     transition: transform 1s;
+     margin-left: 3vw; margin-right: 3vw;
+}
+img[alt='defi']:active, img[alt='plus']:active{
+   transform: scale(0.6);
+}
+
+img[alt='ok'], img[alt='cc'], img[alt='inscription'], img[alt='loupe']{
+    height: 8vw;width: auto;   
+}
+img[alt='cc']:active{
+    transform: scale(1.3);
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 100%;
+}
+
+img[alt='rep']{
+    height: 5vh;width:5vh;margin-left: 3vw; 
+}
+
+span{
+    height: 3vh;
+    color:#00588e;
+    padding-left: 5vw;
+ }
