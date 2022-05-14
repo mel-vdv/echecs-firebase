@@ -164,10 +164,20 @@ updateCase2(num:any, numcase:any, nouveau:any){
   });
 }
 //------------------------------
-updateMortsn(num:any, objet:any){
-  this.afs.doc(`parties/p-${num}`).update(objet);
+updateMortsn(num:any, tableau:any){
+  this.afs.doc(`parties/p-${num}`).update({
+    mortsn : tableau
+  });
 }
-updateMortsb(num:any, objet:any){
-  this.afs.doc(`parties/p-${num}`).update(objet);
+updateMortsb(num:any, tab:any){
+  this.afs.doc(`parties/p-${num}`).update({
+    mortsb : tab
+  });
+}
+//---------------------------------
+changerTour(num:any, tour: any){
+  this.afs.doc(`parties/p-${num}`).update({
+    tour: tour
+  });
 }
 }

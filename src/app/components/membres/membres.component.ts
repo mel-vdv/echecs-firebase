@@ -53,7 +53,7 @@ mb$ ? : any[];
   }
   /////////////////////// 
 reprendre(num:any){
-this.router.navigate([`/game/${num}`]);
+this.router.navigate([`/game/${num}/${this.monpseudo}`]);
 }
 
   /////////////////////// 
@@ -76,7 +76,7 @@ repondre(i: number) {
       console.log('new partie créée');
   });
   this.crud.miseEnPlaceJeu(idpartie);
-  this.router.navigate([`/game/${idpartie}`]);
+  this.router.navigate([`/game/${idpartie}/${this.monpseudo}`]);
 }
   ///////////////////////
 refuser(ami: string, i: number) {

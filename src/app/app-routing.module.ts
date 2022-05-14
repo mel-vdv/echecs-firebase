@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {path:'inscription/:idg', component: InscriptionComponent},
   {path:'membres/:idg',component: MembresComponent},
-  {path: 'game/:num', component: GameComponent},
+  {path: 'game/:num/:qui', component: GameComponent},
   {path: 'fin/:num', component: FinComponent},
   {path: 'stat/:idg', component: StatComponent},
   { path: "**", component: LoginComponent}

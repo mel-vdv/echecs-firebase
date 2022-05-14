@@ -4,21 +4,26 @@ import { VerifMouvService } from './../../services/verif-mouv.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CrudservService } from './../../services/crudserv.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
 
-  maColor!: string;;
+  maColor!: string;taColor!:string;
   p?: any;
   cases$: any;
   parSub?: Subscription;
-  num?: any;
+  partieSub?:Subscription;
+  casesSub?:Subscription;
+
+  num!: any;
   duo!: any[];
+  qui!:any;
 
   //////////////////////////////////////////////////////////
   constructor(
@@ -30,20 +35,21 @@ export class GameComponent implements OnInit {
   ) { }
   ////////////////////////////////////////////////////////////////
   ngOnInit(): void {
-    this.maColor = 'b';
-    this.verifMouv.maColor = this.maColor;
     this.duo = [];
+    //souscription1:
     this.parSub = this.ar.paramMap.subscribe((params: any) => {
       this.num = params.get('num');
-      console.log('ngoninit: num ', this.num);
-
-      this.crud.getInfoPartie(this.num).subscribe((data: any) => {
+      this.qui= params.get('qui');
+      console.log('ngoninit (params):', this.num, this.qui);
+      //souscription 2 :
+      this.partieSub = this.crud.getInfoPartie(this.num).subscribe((data: any) => {
         this.p = data;
-        console.log(JSON.stringify(this.p));
+       if(this.p.b === this.qui){this.maColor='b';this.taColor='n';} else{this.maColor='n';this.taColor='b';}
+       this.verifMouv.maColor = this.maColor;
       });
-      this.crud.getCases(this.num).subscribe((data: any) => {
+      //souscription 3:
+      this.casesSub = this.crud.getCases(this.num).subscribe((data: any) => {
         this.cases$ = data;
-        console.log(JSON.stringify(this.cases$[1]));
       });
     });
   }
@@ -88,9 +94,11 @@ export class GameComponent implements OnInit {
                     if(!this.verifMouv.verdict){
                         console.log('ok, ce mvmt met pas mon roi en echec --> enregistre');
                         //etape 5 : enregistrer dans bdd:
+                        //a. le mouvement a-->b:
                         this.crud.updateCase1(this.num, this.duo[0].case);
                         this.crud.updateCase2(this.num, this.duo[1].case, this.duo[0]);
-                        /*
+                        // b. les morts b/n si il y en a : 
+                        
                         if(this.duo[1].piece !=='vide'&& this.duo[1].color==='n'){
                           this.p.mortsn.push(this.duo[1].piece); 
                           this.crud.updateMortsn(this.num,this.p.mortsn);
@@ -99,8 +107,11 @@ export class GameComponent implements OnInit {
                           this.p.mortsb.push(this.duo[1].piece); 
                           this.crud.updateMortsb(this.num,this.p.mortsb);
 
-                        }*/
+                        }
+                        
                     }
+                  }).then(()=>{
+                    this.auSuivant();
                   });
                 });
               }
@@ -143,9 +154,18 @@ export class GameComponent implements OnInit {
 
     return this.positionsEnnemis;
   }
-
-
+  //////////////////////////////////////////////////////////////
+  auSuivant(){
+    console.log('au suivant');
+  this.crud.changerTour(this.num, this.taColor);
+  this.duo= [];
+  }
   ///////////////////////////////////////////////////////////////
 
- 
+ ngOnDestroy(): void {
+   console.log('game destroy -->  unsubscribe() x3');
+   this.parSub?.unsubscribe();
+   this.casesSub?.unsubscribe();
+   this.partieSub?.unsubscribe();
+ }
 }
