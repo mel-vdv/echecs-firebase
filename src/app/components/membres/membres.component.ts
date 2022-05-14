@@ -71,7 +71,7 @@ repondre(i: number) {
     this.crud.majMaCollek(this.monpseudo!, ami, {lien: 'play', num: idpartie });
     this.crud.majCollekAmi(this.monpseudo!, ami, { lien: 'play', num: idpartie });
     this.crud.creerNewPartie({
-      num:idpartie,noir:this.monpseudo, blanc:ami
+      'num':idpartie,'n':this.monpseudo, 'b':ami
     }).then(() => {
       console.log('new partie créée');
   });

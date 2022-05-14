@@ -1,0 +1,72 @@
+.container{
+  
+    width: 100vw;
+    height: 100vh;
+}
+.jeublanc{
+    width: 96vw;
+    height: 96vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+}
+.jeunoir{
+    width: 96vw;
+    height: 96vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.joueur{
+    height: 20vw;
+    width: 100vw;
+    background-color: rgb(49, 49, 49);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 10vw;
+    text-transform: capitalize;
+}
+.case{
+    box-sizing: border-box;
+    border: 0.2vh solid black; 
+    width: 12vw;
+    height: 12vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.case img{
+    height: 10.5vw;
+}
+.a7, .a5, .a3, .a1,.b8, .b6, .b4, .b2 ,
+.c7, .c5, .c3, .c1,.d8, .d6, .d4, .d2,
+.e7, .e5, .e3, .e1,.f8, .f6, .f4, .f2 ,
+.g7, .g5, .g3, .g1,.h8, .h6, .h4, .h2
+
+{
+    background-color: rgb(172, 168, 168);
+}
+.mortsBlancs, .mortsNoirs{
+    width: 96vw;
+    height: 24vw;
+    border: black 0.5vh solid;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+.mortsBlancs img, .mortsNoirs img{
+    height: 10.5vw;
+}
+.clic1ok{
+    background-color: rgb(241, 212, 165);
+}
+.clicError{
+    background-color:red;
+}
+
+.echecAuRoi{
+    color: red;
+    font-weight: bold;
+}
+

@@ -54,9 +54,9 @@ getAllAmis(monpseudo:string){
   creerNewPartie(x:any){
    return this.afs.collection('parties').doc(`p-${x.num}`).set({
       'num':x.num,
-      'noir':x.noir,'blanc':x.blanc,
+      'n':x.n,'b':x.b,
       'encours':false,
-      'tour':'blanc',
+      'tour':'b',
       'echec':false, 'a':'','par':'',
       'mortsb':[], 'mortsn':[]
   });
@@ -68,8 +68,8 @@ miseEnPlaceJeu(num:any){
 this.afs.collection(`cases-${num}`).doc('a1').set({'case':'a1','lettre':'a','chiffre':1,'chiffreString':'un',  'piece':'tb1','perso':'t','color':'b','vivant':true});  
 this.afs.collection(`cases-${num}`).doc('b1').set({'case':'b1','lettre':'b','chiffre':1,'chiffreString':'un',  'piece':'cb1','perso':'c','color':'b','vivant':true});  
 this.afs.collection(`cases-${num}`).doc('c1').set({'case':'c1','lettre':'c','chiffre':1,'chiffreString':'un', 'piece':'fb1','perso':'f','color':'b','vivant':true});  
-this.afs.collection(`cases-${num}`).doc('d1').set({'case':'d1','lettre':'d','chiffre':1,'chiffreString':'un',  'piece':'rnb','perso':'rn','color':'b','vivant':true});  
-this.afs.collection(`cases-${num}`).doc('e1').set({'case':'e1','lettre':'e','chiffre':1,'chiffreString':'un',  'piece':'rb', 'perso':'r','color':'b','vivant':true});  
+this.afs.collection(`cases-${num}`).doc('d1').set({'case':'d1','lettre':'d','chiffre':1,'chiffreString':'un',  'piece':'rb','perso':'rn','color':'b','vivant':true});  
+this.afs.collection(`cases-${num}`).doc('e1').set({'case':'e1','lettre':'e','chiffre':1,'chiffreString':'un',  'piece':'rob', 'perso':'r','color':'b','vivant':true});  
 this.afs.collection(`cases-${num}`).doc('f1').set({'case':'f1','lettre':'f','chiffre':1,'chiffreString':'un',  'piece':'fb2','perso':'f','color':'b','vivant':true});  
 this.afs.collection(`cases-${num}`).doc('g1').set({'case':'g1','lettre':'g','chiffre':1,'chiffreString':'un',  'piece':'cb2','perso':'c','color':'b','vivant':true});  
 this.afs.collection(`cases-${num}`).doc('h1').set({'case':'h1','lettre':'h','chiffre':1,'chiffreString':'un',  'piece':'tb2','perso':'t','color':'b','vivant':true}); 
@@ -120,24 +120,30 @@ this.afs.collection(`cases-${num}`).doc('g6').set({'case':'g6','lettre':'g','chi
 this.afs.collection(`cases-${num}`).doc('h6').set({'case':'h6','lettre':'h','chiffre':6,'chiffreString':'six',  'piece':'vide','perso':'vide','color':'vide','vivant':true}); 
 
 this.afs.collection(`cases-${num}`).doc('a7').set({'case':'a7','lettre':'a','chiffre':7,'chiffreString':'sept',  'piece':'pn1','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'b7','lettre':'b','chiffre':7,'chiffreString':'sept',  'piece':'pn2','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'c7','lettre':'c','chiffre':7,'chiffreString':'sept',  'piece':'pn3','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'d7','lettre':'d','chiffre':7,'chiffreString':'sept',  'piece':'pn4','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'e7','lettre':'e','chiffre':7,'chiffreString':'sept',  'piece':'pn5','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'f7','lettre':'f','chiffre':7,'chiffreString':'sept',  'piece':'pn6','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'g7','lettre':'g','chiffre':7,'chiffreString':'sept',  'piece':'pn7','perso':'p','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('a7').set({'case':'h7','lettre':'h','chiffre':7,'chiffreString':'sept',  'piece':'pn8','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('b7').set({'case':'b7','lettre':'b','chiffre':7,'chiffreString':'sept',  'piece':'pn2','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('c7').set({'case':'c7','lettre':'c','chiffre':7,'chiffreString':'sept',  'piece':'pn3','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('d7').set({'case':'d7','lettre':'d','chiffre':7,'chiffreString':'sept',  'piece':'pn4','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('e7').set({'case':'e7','lettre':'e','chiffre':7,'chiffreString':'sept',  'piece':'pn5','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('f7').set({'case':'f7','lettre':'f','chiffre':7,'chiffreString':'sept',  'piece':'pn6','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('g7').set({'case':'g7','lettre':'g','chiffre':7,'chiffreString':'sept',  'piece':'pn7','perso':'p','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('h7').set({'case':'h7','lettre':'h','chiffre':7,'chiffreString':'sept',  'piece':'pn8','perso':'p','color':'n','vivant':true}); 
 
 this.afs.collection(`cases-${num}`).doc('a8').set({'case':'a8','lettre':'a','chiffre':8,'chiffreString':'huit',  'piece':'tn1','perso':'t','color':'n','vivant':true}); 
 this.afs.collection(`cases-${num}`).doc('b8').set({'case':'b8','lettre':'b','chiffre':8,'chiffreString':'huit',  'piece':'cn1','perso':'c','color':'n','vivant':true}); 
 this.afs.collection(`cases-${num}`).doc('c8').set({'case':'c8','lettre':'c','chiffre':8,'chiffreString':'huit',  'piece':'fn1','perso':'f','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('d8').set({'case':'d8','lettre':'d','chiffre':8,'chiffreString':'huit',  'piece':'rnn','perso':'rn','color':'n','vivant':true}); 
-this.afs.collection(`cases-${num}`).doc('e8').set({'case':'e8','lettre':'e','chiffre':8,'chiffreString':'huit',  'piece':'rn','perso':'r','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('d8').set({'case':'d8','lettre':'d','chiffre':8,'chiffreString':'huit',  'piece':'rn','perso':'rn','color':'n','vivant':true}); 
+this.afs.collection(`cases-${num}`).doc('e8').set({'case':'e8','lettre':'e','chiffre':8,'chiffreString':'huit',  'piece':'ron','perso':'r','color':'n','vivant':true}); 
 this.afs.collection(`cases-${num}`).doc('f8').set({'case':'f8','lettre':'f','chiffre':8,'chiffreString':'huit',  'piece':'fn2','perso':'f','color':'n','vivant':true}); 
 this.afs.collection(`cases-${num}`).doc('g8').set({'case':'g8','lettre':'g','chiffre':8,'chiffreString':'huit',  'piece':'cn2','perso':'c','color':'n','vivant':true}); 
 this.afs.collection(`cases-${num}`).doc('h8').set({'case':'h8','lettre':'h','chiffre':8,'chiffreString':'huit',  'piece':'tn2','perso':'t','color':'n','vivant':true}); 
 
-
-
-
-}}
+}
+/////////////////////////////
+getInfoPartie(num:any){
+  return this.afs.doc(`parties/p-${num}`).valueChanges() as Observable<any>;
+}
+//---------------------------
+getCases(num:any){
+ return this.afs.collection(`cases-${num}`).valueChanges() as Observable<any>;
+}
+}
