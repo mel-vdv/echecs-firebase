@@ -58,7 +58,7 @@ getAllAmis(monpseudo:string){
       'encours':false,
       'tour':'b',
       'echec':false, 'a':'','par':'',
-      'mortsb':[], 'mortsn':[]
+      'mortsb':[''], 'mortsn':['']
   });
 
 
@@ -145,5 +145,29 @@ getInfoPartie(num:any){
 //---------------------------
 getCases(num:any){
  return this.afs.collection(`cases-${num}`).valueChanges() as Observable<any>;
+}
+//------------------------------
+updateCase1(num:any, numcase:any){
+  this.afs.collection(`cases-${num}`).doc(numcase).update({
+ perso: 'vide',
+ piece: 'vide',
+ color: 'vide'
+  });
+}
+//------------------------------
+updateCase2(num:any, numcase:any, nouveau:any){
+  this.afs.collection(`cases-${num}`).doc(numcase).update({
+ perso: nouveau.perso,
+ piece: nouveau.piece,
+ color: nouveau.color,
+ vivant: true
+  });
+}
+//------------------------------
+updateMortsn(num:any, objet:any){
+  this.afs.doc(`parties/p-${num}`).update(objet);
+}
+updateMortsb(num:any, objet:any){
+  this.afs.doc(`parties/p-${num}`).update(objet);
 }
 }

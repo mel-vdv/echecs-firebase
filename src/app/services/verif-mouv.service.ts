@@ -31,7 +31,7 @@ verdict!:any;
     //--------------------------------------------
     
     pionBouge(lettreA: string, chiffreA: number, lettreB: string, chiffreB: number, persoB: string){
-      console.log(this.maColor, lettreA, chiffreA, lettreB, chiffreB, persoB);
+     // console.log(this.maColor, lettreA, chiffreA, lettreB, chiffreB, persoB);
       let indexA = this.lettres.findIndex(e => e === lettreA);
       let indexB = this.lettres.findIndex(e => e === lettreB);
       if (persoB === 'vide') { // DEPLACEMENT TOUT DROIT :
