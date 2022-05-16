@@ -15,7 +15,7 @@
 
             <div class="jeublanc" >
                 <div *ngFor='let carre of cases$' >
-                <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} normal">
+                <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} {{carre.classe}}">
                     <img (click)='toucher(carre.color,carre.case,carre.piece,carre.perso,carre.chiffre,carre.lettre)'
                         src="./../../../assets/{{carre.piece}}.png" alt="">
                 </div>
@@ -45,7 +45,7 @@
           
             <div class="jeunoir" >
                 <div *ngFor='let carre of cases$'>
-                <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} normal">
+                <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} {{carre.classe}}">
                     <img (click)='toucher(carre.color,carre.case,carre.piece,carre.perso,carre.chiffre,carre.lettre)'
                         src="./../../../assets/{{carre.piece}}.png" alt="">
                 </div>

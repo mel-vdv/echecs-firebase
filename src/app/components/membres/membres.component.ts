@@ -2,6 +2,8 @@ import { CrudservService } from './../../services/crudserv.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 @Component({
   selector: 'app-membres',
   templateUrl: './membres.component.html',
@@ -16,7 +18,8 @@ mb$ ? : any[];
   constructor(
     private router: Router,
     private ar: ActivatedRoute,
-    private crud: CrudservService
+    private crud: CrudservService,
+    private auth : AngularFireAuth
 
 
   ) { }
@@ -84,5 +87,11 @@ refuser(ami: string, i: number) {
   this.crud.majCollekAmi(this.monpseudo!, ami, { lien: 'aucun' });
   this.amis$![i].repondreVis = false;
 }
-  
+  ///////////////////////////////
+ async deco(){
+      return this.auth.signOut().then(()=>{
+        console.log('deco done');
+      })
+      
+  }
 }

@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       else {
         console.log('pas de user : pas connecté');
         this.coGoogle();
+
+        
       }
     });
   }

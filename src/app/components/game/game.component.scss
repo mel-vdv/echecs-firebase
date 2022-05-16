@@ -58,15 +58,19 @@
 .mortsBlancs img, .mortsNoirs img{
     height: 10.5vw;
 }
-.clic1ok{
+.vert{
+    box-sizing: border-box;
+  border: solid 2px green;
+}
+.normal{
+    border:none;
+}
+.aide{
     background-color: rgb(241, 212, 165);
 }
-.clicError{
+.rouge{
     background-color:red;
 }
 
-.echecAuRoi{
-    color: red;
-    font-weight: bold;
-}
+
 
