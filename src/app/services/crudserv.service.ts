@@ -57,7 +57,7 @@ getAllAmis(monpseudo:string){
       'n':x.n,'b':x.b,
       'encours':false,
       'tour':'b',
-      'echec':false, 'a':'','par':'',
+      'echec':'noechec',
       'mortsb':[''], 'mortsn':['']
   });
 
@@ -178,6 +178,11 @@ updateMortsb(num:any, tab:any){
 changerTour(num:any, tour: any){
   this.afs.doc(`parties/p-${num}`).update({
     tour: tour
+  });
+}
+echec(num:any, echec: any){
+  this.afs.doc(`parties/p-${num}`).update({
+    echec: echec
   });
 }
 }

@@ -20,12 +20,31 @@
 .joueur{
     height: 20vw;
     width: 100vw;
-    background-color: rgb(49, 49, 49);
-    color: white;
     text-align: center;
     font-weight: bold;
     font-size: 10vw;
     text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.noechec, .blanco.echecn, .negro.echecb{
+background-color: rgb(49, 49, 49); 
+color: white;
+}
+.blanco.echecb, .negro.echecn{
+   background-image: url('./../../../assets/ECHECS.png');
+    background-size: contain;
+    color: black;
+}
+img[alt='pion']{
+    height: 10vw;
+    animation: clignoter 2s linear infinite;
+
+}
+@keyframes clignoter {
+    0%, 100%{ transform: scale(1); }
+    50%{ transform: scale(0.8);}
 }
 .case{
     box-sizing: border-box;

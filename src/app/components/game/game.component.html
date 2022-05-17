@@ -4,7 +4,7 @@
         <!--///////////////////////////     JEU DES BLANCS      ///////////////////////////////////////////////////-->
        
         <div *ngIf="maColor ==='b'">
-             <div class="joueur"><span *ngIf="p.tour==='n'">AU TOUR DE  : </span>{{p.n}}</div>
+             <div class="joueur negro {{p.echec}}"> <img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
             <div class="mortsBlancs">
                 <div *ngFor='let mortBlanc of p.mortsb'>
                     <div>
@@ -29,12 +29,12 @@
                     </div>
                 </div>
             </div>
-            <div class="joueur"><span *ngIf="p.tour==='b'">AU TOUR DE  : </span>{{p.b}}</div>
+            <div class="joueur blanco {{p.echec}}"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
         </div>
         <!--//////////////////////////      JEU DES NOIRS      ///////////////////////////////////////////////////-->
     
         <div *ngIf="maColor ==='n'">
-            <div class="joueur"><span *ngIf="p.tour==='b'">AU TOUR DE  : </span>{{p.b}}</div>
+            <div class="joueur blanco {{p.echec}}"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
             <div  class="mortsNoirs">
                 <div *ngFor='let mortNoir of p.mortsn'>
                     <div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="joueur"><span *ngIf="p.tour==='n'">AU TOUR DE  : </span>{{p.n}}</div>
+            <div class="joueur negro {{p.echec}}"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
         </div>
 
 </div>
