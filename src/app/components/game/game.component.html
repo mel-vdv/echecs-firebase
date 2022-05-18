@@ -4,8 +4,9 @@
         <!--///////////////////////////     JEU DES BLANCS      ///////////////////////////////////////////////////-->
        
         <div *ngIf="maColor ==='b'">
-             <div class="joueur negro {{p.echec}}"> <img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
-            <div class="mortsBlancs">
+             <div class="joueur"> <img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
+            <div class="alarme" *ngIf="p.echec==='echecn'"><img src="./../../../assets/alarme.png" alt="alarme" > <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+             <div class="mortsBlancs">
                 <div *ngFor='let mortBlanc of p.mortsb'>
                     <div>
                         <img src="./../../../assets/{{mortBlanc}}.png" alt="">
@@ -29,12 +30,16 @@
                     </div>
                 </div>
             </div>
-            <div class="joueur blanco {{p.echec}}"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
+            <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
+            <div class="alarme" *ngIf="p.echec==='echecb'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+
         </div>
         <!--//////////////////////////      JEU DES NOIRS      ///////////////////////////////////////////////////-->
     
         <div *ngIf="maColor ==='n'">
-            <div class="joueur blanco {{p.echec}}"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
+            <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
+            <div class="alarme" *ngIf="p.echec==='echecb'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+
             <div  class="mortsNoirs">
                 <div *ngFor='let mortNoir of p.mortsn'>
                     <div>
@@ -61,7 +66,9 @@
                 </div>
             </div>
 
-            <div class="joueur negro {{p.echec}}"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
+            <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
+            <div class="alarme" *ngIf="p.echec==='echecn'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+
         </div>
 
 </div>

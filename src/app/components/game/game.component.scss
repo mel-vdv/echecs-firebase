@@ -1,24 +1,25 @@
 .container{
-  
+   position: absolute;
+   top: 0px; left:0px;
     width: 100vw;
     height: 100vh;
 }
 .jeublanc{
-    width: 96vw;
-    height: 96vw;
+    width: 100vw;
+    height: 100vw;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column-reverse;
 }
 .jeunoir{
-    width: 96vw;
-    height: 96vw;
+    width: 100vw;
+    height: 100vw;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
 }
-.joueur{
-    height: 20vw;
+.joueur, .alarme{
+    height: 15vw;
     width: 100vw;
     text-align: center;
     font-weight: bold;
@@ -27,19 +28,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.noechec, .blanco.echecn, .negro.echecb{
 background-color: rgb(49, 49, 49); 
 color: white;
 }
-.blanco.echecb, .negro.echecn{
-   background-image: url('./../../../assets/ECHECS.png');
-    background-size: contain;
-    color: black;
+.alarme{
+    background-color: white;
+color: red;
 }
-img[alt='pion']{
+
+img[alt='pion'], img[alt='alarme']{
     height: 10vw;
-    animation: clignoter 2s linear infinite;
+    animation: clignoter 1s linear infinite;
 
 }
 @keyframes clignoter {
@@ -49,8 +48,8 @@ img[alt='pion']{
 .case{
     box-sizing: border-box;
     border: 0.2vh solid black; 
-    width: 12vw;
-    height: 12vw;
+    width: 12.5vw;
+    height: 12.5vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,8 +66,8 @@ img[alt='pion']{
     background-color: rgb(172, 168, 168);
 }
 .mortsBlancs, .mortsNoirs{
-    width: 96vw;
-    height: 24vw;
+    width: 100vw;
+    height: 25vw;
     border: black 0.5vh solid;
     box-sizing: border-box;
     display: flex;
@@ -79,7 +78,7 @@ img[alt='pion']{
 }
 .vert{
     box-sizing: border-box;
-  border: solid 2px green;
+    border: solid 1vw rgb(34, 241, 34);
 }
 .normal{
     border:none;
