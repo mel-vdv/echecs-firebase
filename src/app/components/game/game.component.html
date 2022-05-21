@@ -1,74 +1,91 @@
-
 <div class="container">
-        
-        <!--///////////////////////////     JEU DES BLANCS      ///////////////////////////////////////////////////-->
+
+    <!--///////////////////////////     JEU DES BLANCS      ///////////////////////////////////////////////////-->
+
+    <div *ngIf="maColor ==='b'">
+        <div class="joueur"> <img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='n'"></div>
+
+        <div class="alarme" *ngIf="p.echec==='echecn'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC
+                AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+        <div class="alarme" *ngIf="p.echec==='noechec'"></div>
+        <div class="mortsBlancs">
+            <div *ngFor='let mortBlanc of p.mortsb'>
+                <div>
+                    <img src="./../../../assets/{{mortBlanc}}.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="jeublanc">
+            <div *ngFor='let carre of cases$'>
+                <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} {{carre.classe}}">
+                    <img (click)='toucher(carre.color,carre.case,carre.piece,carre.perso,carre.chiffre,carre.lettre)'
+                        src="./../../../assets/{{carre.piece}}.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="mortsNoirs">
+            <div *ngFor='let mortNoir of p.mortsn'>
+                <div>
+                    <img src="./../../../assets/{{mortNoir}}.png" alt="">
+                </div>
+            </div>
+        </div>
        
-        <div *ngIf="maColor ==='b'">
-             <div class="joueur"> <img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
-            <div class="alarme" *ngIf="p.echec==='echecn'"><img src="./../../../assets/alarme.png" alt="alarme" > <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
-             <div class="mortsBlancs">
-                <div *ngFor='let mortBlanc of p.mortsb'>
-                    <div>
-                        <img src="./../../../assets/{{mortBlanc}}.png" alt="">
-                    </div>
+        <div class="alarme" *ngIf="p.echec==='echecb'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC
+                AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+        <div class="alarme" *ngIf="p.echec==='noechec'"></div> 
+        <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='b'"></div>
+    </div>
+    <!--//////////////////////////      JEU DES NOIRS      ///////////////////////////////////////////////////-->
+
+    <div *ngIf="maColor ==='n'">
+        <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='b'"></div>
+
+        <div class="alarme" *ngIf="p.echec==='noechec'"></div>
+        <div class="alarme" *ngIf="p.echec==='echecb'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC
+                AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+
+        <div class="mortsNoirs">
+            <div *ngFor='let mortNoir of p.mortsn'>
+                <div>
+                    <img src="./../../../assets/{{mortNoir}}.png" alt="">
                 </div>
             </div>
+        </div>
 
-            <div class="jeublanc" >
-                <div *ngFor='let carre of cases$' >
+        <div class="jeunoir">
+            <div *ngFor='let carre of cases$'>
                 <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} {{carre.classe}}">
                     <img (click)='toucher(carre.color,carre.case,carre.piece,carre.perso,carre.chiffre,carre.lettre)'
                         src="./../../../assets/{{carre.piece}}.png" alt="">
                 </div>
-                </div>
             </div>
-
-            <div  class="mortsNoirs">
-                <div *ngFor='let mortNoir of p.mortsn'>
-                    <div>
-                        <img src="./../../../assets/{{mortNoir}}.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
-            <div class="alarme" *ngIf="p.echec==='echecb'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
-
         </div>
-        <!--//////////////////////////      JEU DES NOIRS      ///////////////////////////////////////////////////-->
-    
-        <div *ngIf="maColor ==='n'">
-            <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"><span>{{p.b}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='b'"></div>
-            <div class="alarme" *ngIf="p.echec==='echecb'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
 
-            <div  class="mortsNoirs">
-                <div *ngFor='let mortNoir of p.mortsn'>
-                    <div>
-                        <img src="./../../../assets/{{mortNoir}}.png" alt="">
-                    </div>
+
+        <div class="mortsBlancs">
+            <div *ngFor='let mortBlanc of p.mortsb'>
+                <div>
+                    <img src="./../../../assets/{{mortBlanc}}.png" alt="">
                 </div>
             </div>
-          
-            <div class="jeunoir" >
-                <div *ngFor='let carre of cases$'>
-                <div class="case {{carre.lettre}} {{carre.chiffreString}} {{carre.case}} {{carre.classe}}">
-                    <img (click)='toucher(carre.color,carre.case,carre.piece,carre.perso,carre.chiffre,carre.lettre)'
-                        src="./../../../assets/{{carre.piece}}.png" alt="">
-                </div>
-                </div>
-            </div>
-
-
-            <div  class="mortsBlancs">
-                <div *ngFor='let mortBlanc of p.mortsb'>
-                    <div>
-                        <img src="./../../../assets/{{mortBlanc}}.png" alt="">
-                    </div>
-                </div>
-            </div>
-
-            <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion" *ngIf="p.tour==='n'"></div>
-            <div class="alarme" *ngIf="p.echec==='echecn'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
-
         </div>
+
+        <div class="alarme" *ngIf="p.echec==='echecn'"><img src="./../../../assets/alarme.png" alt="alarme"> <span>ECHEC
+                AU ROI</span><img src="./../../../assets/alarme.png" alt="alarme"> </div>
+        <div class="alarme" *ngIf="p.echec==='noechec'"></div>
+        <div class="joueur"><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='n'"><span>{{p.n}}</span><img src="./../../../assets/tb1.png" alt="pion"
+                *ngIf="p.tour==='n'"></div>
+
+    </div>
 
 </div>

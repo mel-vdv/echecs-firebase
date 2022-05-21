@@ -73,14 +73,17 @@ export class GameComponent implements OnInit, OnDestroy {
         case 1: if (this.maColor !== color) {
           this.duo.push({ color: color, case: caz, piece: piece, perso: perso, chiffre: chiffre, lettre: lettre });
           //etape 3 : mouv autorisé selon piece?:
+          this.verifMouv.cases$ = this.cases$;
           this.verifMouv.verifMouvPiece(this.duo)
             .then(() => {
               if (this.verifMouv.verdict) {
+
                 console.log('2/ clic2 : mouv piece autorisé et pas de obstacle ');
                 //-----------------------------------------------------------------
                 // etape 4 : 1/simuler le mouvement 2/positions ennemis 3/ pour vérif si echec : ---------------------------
                 //1/
                 this.simuler().then(() => {
+                  this.verifMouv.cases$ = this.simulacre$;
                   //2/
                   this.getPositionsEnnemis().then(() => {
                     this.echecAmonRoi().then(() => {
@@ -88,6 +91,9 @@ export class GameComponent implements OnInit, OnDestroy {
                         console.log('3/ echec à mon roi: clic2 refusé: pop()');
                         this.duo.pop();
                         this.duo.pop();
+                        this.cases$.forEach((x: any) => {
+                          x.classe = 'normal';
+                        });
                         return;
                       }
                       else {
@@ -108,6 +114,7 @@ export class GameComponent implements OnInit, OnDestroy {
                                   } else { echec = 'echecb'; }
                                   this.crud.echec(this.num, echec);
                                   console.log('5/ echec au roi ennemi, au suivant');
+                                  return;
                                 }
                                 else {
                                   if (this.p.echec !== 'noechec') {
@@ -115,6 +122,7 @@ export class GameComponent implements OnInit, OnDestroy {
                                   }
                                   console.log('5/ pas echec au roi, au suivant');
                                 }
+                                return;
                               });
                             })
                               // etape 7 : au suivant ();--------------------------------------------------------------------------
@@ -173,7 +181,7 @@ export class GameComponent implements OnInit, OnDestroy {
       case: this.duo[1].case, lettre: this.duo[1].lettre, chiffre: this.duo[1].chiffre,
       perso: this.duo[0].perso, color: this.duo[0].color, piece: this.duo[0].piece
     });
-   // this.verifMouv.cases$ = this.simulacre$;
+    this.verifMouv.cases$ = this.simulacre$;
     return this.simulacre$;
   }
   /////////////////////////////////////////////////////////////
@@ -199,52 +207,51 @@ export class GameComponent implements OnInit, OnDestroy {
   async echecAmonRoi() {
     console.log('3. verif echec a mon roi...');
     let monroi = this.simulacre$.slice().filter((a: any) => a.perso === 'r' && a.color === this.maColor)[0];
-
     this.verifMouv.cases$ = this.simulacre$;
-    this.echecMonRoi = false; this.verifMouv.verdict = false;
+    this.verifMouv.verdict=false;
+    this.echecMonRoi= false;
 
     this.positionsEnnemis.forEach((b: any) => {
-      //3/
       let pair = [b, monroi];
-      this.verifMouv.verifMouvPiece(pair).then(() => {
-        if (this.verifMouv.verdict) {
-          console.log('3. echec a mon roi ', b.piece);
-          return this.echecMonRoi = true;
+      if (this.verifMouv.verdict) {
+        console.log('3. echec a mon roi', b.piece);
+        return this.echecMonRoi = true;
+      }
+      else {
+          this.verifMouv.verifMouvPiece(pair).then(() => {
+            console.log('3. pas echec a mon roi ', b.piece);
+            return;
+          });
+          return;
         }
-        else {
-          console.log('3. pas echec a mon roi ', b.piece);
-        }
-        return;
       });
-    });
-    return;
+      return;
   }
   /////////////////////////////
   echecRoiEnnemi?: boolean;
   async echecAtonRoi() {
-    console.log('5. verif echec au roi ennemi');
-    let tonroi = this.cases$.filter((a: any) => a.perso === 'r' && a.color !== this.maColor)[0];
-    this.verifMouv.verdict = false;
-
-    if (this.echecRoiEnnemi) { this.echecRoiEnnemi = false; }
-
+    console.log('5. verif echec au roi ennemi...');
+    let tonroi = this.simulacre$.slice().filter((a: any) => a.perso === 'r' && a.color !== this.maColor)[0];
+    this.verifMouv.cases$ = this.simulacre$;
+    this.verifMouv.verdict=false;
+    this.echecRoiEnnemi = false;
 
     this.positionsMesSoldats.forEach((b: any) => {
-      //3/
+      let pair = [b, tonroi];
       if (this.verifMouv.verdict) {
-        console.log('5. echec au roi ennemi ', b.piece);
-        this.echecRoiEnnemi = true;
-        return;
+        console.log('5. echec roi ennemi', b.piece);
+        return this.echecRoiEnnemi = true;
       }
       else {
-        let pair = [b, tonroi];
-        this.verifMouv.verifMouvPiece(pair).then(()=>{
-          console.log('5. pas echec au roi ennnemi ', b.piece);
-        });
-      }
+          this.verifMouv.verifMouvPiece(pair).then(() => {
+            console.log('5. pas echec au roi ennemi ', b.piece);
+           // return;
+          });
+         
+        }
+         return;
+      });
       return;
-    });
-    return;
   }
   //////////////////////////////////////////
   async enregistrer() {
@@ -270,6 +277,7 @@ export class GameComponent implements OnInit, OnDestroy {
     console.log('6. au suivant');
     this.crud.changerTour(this.num, this.taColor);
     this.duo = [];
+    return;
   }
   ///////////////////////////////////////////////////////////////
 

@@ -19,7 +19,7 @@
     flex-direction: column;
 }
 .joueur, .alarme{
-    height: 15vw;
+    height: 10vw;
     width: 100vw;
     text-align: center;
     font-weight: bold;
@@ -37,7 +37,7 @@ color: red;
 }
 
 img[alt='pion'], img[alt='alarme']{
-    height: 10vw;
+    height: 6vw;
     animation: clignoter 1s linear infinite;
 
 }
