@@ -1,10 +1,10 @@
+import { MatService } from './../../services/mat.service';
 
 import { VerifMouvService } from './../../services/verif-mouv.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrudservService } from './../../services/crudserv.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-game',
@@ -29,6 +29,8 @@ export class GameComponent implements OnInit, OnDestroy {
     private crud: CrudservService,
     private ar: ActivatedRoute,
     private verifMouv: VerifMouvService,
+    private router: Router,
+    private mat: MatService
   ) { }
   ////////////////////////////////////////////////////////////////
   ngOnInit(): void {
@@ -41,14 +43,45 @@ export class GameComponent implements OnInit, OnDestroy {
       //souscription 2 :
       this.partieSub = this.crud.getInfoPartie(this.num).subscribe((data: any) => {
         this.p = data;
+        // suis je en echec?
+        if (this.p.echec === this.maColor) {
+          console.log('echec ', this.p.echec, ' : verif echec et mat...');
+          this.mat.cases$ = this.cases$;
+          this.mat.maColor = this.maColor;
+          this.mat.verifMat().then(() => {
+            if (this.mat.mat === true) {
+              console.log('CONCLUSION finale : MAT');
+              this.fin();
+              return;
+            }
+            else if (this.mat.mat === false) {
+              console.log('CONCLUSION finale : PAS MAT');
+              return;
+            }
+            else {
+              console.log('probleme');
+              
+            }
+          });
+
+
+        }
+        // partie finie?
+        if (this.p.finie) {
+          console.log('partie finie');
+          this.router.navigate([`/fin/${this.num}`]);
+        }
+        // ma couleur?
         if (this.p.b === this.qui) { this.maColor = 'b'; this.taColor = 'n'; } else { this.maColor = 'n'; this.taColor = 'b'; }
         this.verifMouv.maColor = this.maColor;
+
+
       });
       //souscription 3:
       this.casesSub = this.crud.getCases(this.num).subscribe((data: any) => {
         this.cases$ = data;
         this.verifMouv.cases$ = data;
-        this.cases$.forEach((e: any) => { e.classe = 'normal'; })
+        this.cases$.forEach((e: any) => { e.classe = 'normal'; });
       });
     });
   }
@@ -110,8 +143,8 @@ export class GameComponent implements OnInit, OnDestroy {
                                   //etape7: on enregistre : ----------------------------------------------------------------------
                                   let echec;
                                   if (this.maColor === 'b') {
-                                    echec = 'echecn';
-                                  } else { echec = 'echecb'; }
+                                    echec = 'n';
+                                  } else { echec = 'b'; }
                                   this.crud.echec(this.num, echec);
                                   console.log('5/ echec au roi ennemi, au suivant');
                                   return;
@@ -208,8 +241,8 @@ export class GameComponent implements OnInit, OnDestroy {
     console.log('3. verif echec a mon roi...');
     let monroi = this.simulacre$.slice().filter((a: any) => a.perso === 'r' && a.color === this.maColor)[0];
     this.verifMouv.cases$ = this.simulacre$;
-    this.verifMouv.verdict=false;
-    this.echecMonRoi= false;
+    this.verifMouv.verdict = false;
+    this.echecMonRoi = false;
 
     this.positionsEnnemis.forEach((b: any) => {
       let pair = [b, monroi];
@@ -218,14 +251,14 @@ export class GameComponent implements OnInit, OnDestroy {
         return this.echecMonRoi = true;
       }
       else {
-          this.verifMouv.verifMouvPiece(pair).then(() => {
-            console.log('3. pas echec a mon roi ', b.piece);
-            return;
-          });
+        this.verifMouv.verifMouvPiece(pair).then(() => {
+          console.log('3. pas echec a mon roi ', b.piece);
           return;
-        }
-      });
-      return;
+        });
+        return;
+      }
+    });
+    return;
   }
   /////////////////////////////
   echecRoiEnnemi?: boolean;
@@ -233,7 +266,8 @@ export class GameComponent implements OnInit, OnDestroy {
     console.log('5. verif echec au roi ennemi...');
     let tonroi = this.simulacre$.slice().filter((a: any) => a.perso === 'r' && a.color !== this.maColor)[0];
     this.verifMouv.cases$ = this.simulacre$;
-    this.verifMouv.verdict=false;
+    this.verifMouv.verdict = false;
+    
     this.echecRoiEnnemi = false;
 
     this.positionsMesSoldats.forEach((b: any) => {
@@ -243,15 +277,14 @@ export class GameComponent implements OnInit, OnDestroy {
         return this.echecRoiEnnemi = true;
       }
       else {
-          this.verifMouv.verifMouvPiece(pair).then(() => {
-            console.log('5. pas echec au roi ennemi ', b.piece);
-           // return;
-          });
-         
-        }
-         return;
-      });
-      return;
+        this.verifMouv.verifMouvPiece(pair).then(() => {
+          console.log('5. pas echec au roi ennemi ', b.piece);
+          return;
+        });
+        return;
+      }
+    });
+    return;
   }
   //////////////////////////////////////////
   async enregistrer() {
@@ -279,7 +312,20 @@ export class GameComponent implements OnInit, OnDestroy {
     this.duo = [];
     return;
   }
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+  fin() {
+    console.log('fin()');
+    let fin = {
+      num: this.num,
+      gagnant: this.maColor,
+      noirs: this.p.n,
+      blancs: this.p.b
+    }
+    this.crud.fin(fin);
+    this.router.navigate([`/fin/${this.num}`]);
+  }
+
+  /////////////////////////////////////////////
 
   ngOnDestroy(): void {
     console.log('game destroy -->  unsubscribe() x3');
@@ -287,4 +333,4 @@ export class GameComponent implements OnInit, OnDestroy {
     this.casesSub?.unsubscribe();
     this.partieSub?.unsubscribe();
   }
-}
+} 

@@ -55,7 +55,7 @@ getAllAmis(monpseudo:string){
    return this.afs.collection('parties').doc(`p-${x.num}`).set({
       'num':x.num,
       'n':x.n,'b':x.b,
-      'encours':false,
+      'finie':false,
       'tour':'b',
       'echec':'noechec',
       'mortsb':[''], 'mortsn':['']
@@ -184,5 +184,32 @@ echec(num:any, echec: any){
   this.afs.doc(`parties/p-${num}`).update({
     echec: echec
   });
+}
+//-------------------------------------
+fin(x:any){ 
+
+   //3. 
+  this.afs.doc(`mb-${x.blancs}/${x.noirs}`).update({
+   lien:'aucun'
+  });
+  this.afs.doc(`mb-${x.noirs}/${x.blancs}`).update({
+    lien:'aucun'
+   });
+    //1.
+  this.afs.doc(`parties/p-${x.num}`).update({
+    finie: true
+  });
+
+//2.
+  return this.afs.collection('stats').doc(`stat-${x.num}`).set({
+    date: Date.now(),
+    gagnant:x.gagnant,
+    noirs: x.noirs,
+    blancs:x.blancs
+  });
+}
+//-------------------------------------------------
+getStat(num:any){
+  return this.afs.doc(`stats/stat-${num}`).valueChanges() as Observable<any>;
 }
 }

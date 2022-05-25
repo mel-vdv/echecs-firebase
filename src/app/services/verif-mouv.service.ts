@@ -15,7 +15,8 @@ export class VerifMouvService {
   cases$: any;
 
   ///////////////////////////////////////////////////////
-  async verifMouvPiece(duo: any) {
+
+ async verifMouvPiece(duo: any) {
     switch (duo[0].perso) {
       case 'p': this.pionBouge(duo[0].lettre, duo[0].chiffre, duo[1].lettre, duo[1].chiffre, duo[1].perso);
         break;
@@ -88,6 +89,7 @@ export class VerifMouvService {
   }
   ///////////////////////////////////////////////////////////
 async fouBouge(lettreA: string, chiffreA: number, lettreB: string, chiffreB: number) {
+  console.log('2. test fou');
     let indexA = this.lettres.findIndex(e => e === lettreA);
     let indexB = this.lettres.findIndex(e => e === lettreB);
 
@@ -95,21 +97,22 @@ async fouBouge(lettreA: string, chiffreA: number, lettreB: string, chiffreB: num
     if (conditionFou) {
       let difference = Math.abs(chiffreA-chiffreB);
       if (difference > 1) {
+       
         //obstacle? :
         switch (true) {
-          case indexA > indexB: this.trajetDiagonal(indexB, indexA, chiffreB, chiffreA).then(() => { if (!this.obstacle) { return this.verdict = true; } else { return this.verdict = false; } }); break;
-          case indexB > indexA: this.trajetDiagonal(indexA, indexB, chiffreA, chiffreB).then(() => { if (!this.obstacle) { return this.verdict = true; } else { return this.verdict = false; } }); break;
+          case indexA > indexB: this.trajetDiagonal(indexB, indexA, chiffreB, chiffreA).then(() => { if (!this.obstacle) { console.log('t long :echec f'); return this.verdict = true; } else {console.log('pac echec f car obstacle'); return this.verdict = false; } }); break;
+          case indexB > indexA: this.trajetDiagonal(indexA, indexB, chiffreA, chiffreB).then(() => { if (!this.obstacle) { console.log('t long :echec f');  return this.verdict = true; } else {console.log('pac echec f car obstacle');  return this.verdict = false; } }); break;
           default: console.log('merte');
         }
         return;
       }
       else {
-        console.log('trajet court'); 
+        console.log('trajet court,echec f'); 
          return this.verdict = true;
       }
     }
     else {
-      //   console.log('mouv invalide');
+      console.log('pac echec fou');
       return this.verdict = false;
     }
   }
@@ -224,11 +227,11 @@ async chevalBouge(lettreA: string, chiffreA: number, lettreB: string, chiffreB: 
       (Math.abs(indexA - indexB) === 2 && Math.abs(chiffreA - chiffreB) === 1)
 
     ) {
-      console.log('cheveal mouv ok', lettreA, chiffreA, '-->', lettreB, chiffreB);
+   //   console.log('cheveal mouv ok', lettreA, chiffreA, '-->', lettreB, chiffreB);
       return this.verdict = true;
     }
     else {
-      console.log('cheval mouv invalide', lettreA, chiffreA, '-->', lettreB, chiffreB);
+    //  console.log('cheval mouv invalide', lettreA, chiffreA, '-->', lettreB, chiffreB);
       return this.verdict = false;
     }
   }
@@ -285,33 +288,26 @@ async trajetVertical(de: number, vers: number, lettre: string) {
   //------------------
   async trajetDiagonal(indexde: number, indexvers: number, chiffrede: number, chiffrevers: number) {
     console.log('trajet diagonal');
+    
     let trajet: any = []; let lettres = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
     for (let i = indexde + 1; i < indexvers; i++) {
-      if (chiffrede < chiffrevers) {
-        chiffrede++;
-        let etape = lettres[i] + (chiffrede) + '';
-        trajet.push(etape);
-        if (i === (indexvers - 1)) {
-          if (this.cases$.filter((e: any) => trajet.includes(e.case) && e.perso === 'vide').length !== trajet.length) {
-            console.log('obstacle'); return this.obstacle = true;
-          }
-          else { console.log('zero obstacle'); return this.obstacle = false; }
-        }
-       // return;
 
-      } else {
-        chiffrede--;
+        if (chiffrede < chiffrevers) {
+        chiffrede++;}
+        else{
+          chiffrede--;
+        }
         let etape = lettres[i] + (chiffrede) + '';
         trajet.push(etape);
+
         if (i === (indexvers - 1)) {
           if (this.cases$.filter((e: any) => trajet.includes(e.case) && e.perso === 'vide').length !== trajet.length) {
-            console.log('obstacle'); return this.obstacle = true;
+            console.log('obstacle'); this.obstacle = true ;this.verdict=false; return ;
           }
-          else { console.log('zero obstacle'); return this.obstacle = false; }
+          else { console.log('zero obstacle');this.obstacle = false;  this.verdict=true; return;
         }
-// return;
-      }
+        }
     }
     return;
   }
